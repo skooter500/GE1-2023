@@ -26,7 +26,6 @@
 shape = SubResource("WorldBoundaryShape3D_luwr5")
 
 [node name="tank" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.107)
 script = ExtResource("1_4jgca")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tank"]
@@ -36,7 +35,7 @@ shape = SubResource("BoxShape3D_5alk8")
 mesh = SubResource("BoxMesh_nf532")
 
 [node name="turret" type="CharacterBody3D" parent="tank"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0.486507, -0.20503)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0.5, -1.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="tank/turret"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.640703, 1.05432)
@@ -47,11 +46,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3ib7h")
 shape = SubResource("CylinderShape3D_il7e8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52795, 7.06714)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, 1.52795, 5.78469)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
 [node name="wall" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.01305)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.00864)
 script = ExtResource("2_lmu60")
 brickScene = ExtResource("3_matj6")
