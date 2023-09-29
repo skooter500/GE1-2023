@@ -11,10 +11,7 @@ extends Node3D
 
 func _process(delta):
 	print(delta)
-<<<<<<< HEAD
-=======
 
->>>>>>> f65f1bab39ca0c83588dca131fb510e1be7d6b01
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	

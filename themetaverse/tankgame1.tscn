@@ -1,68 +1,57 @@
-[gd_scene load_steps=13 format=3 uid="uid://r7gg3dyc3t6i"]
+[gd_scene load_steps=10 format=3 uid="uid://dxbemdjqev5ci"]
 
-[ext_resource type="Material" uid="uid://cpg5h3e60f4bg" path="res://green.tres" id="1_4wjot"]
-[ext_resource type="Script" path="res://tank1.gd" id="2_n83ob"]
-[ext_resource type="Material" path="res://Tank Material.tres" id="2_y21kj"]
-[ext_resource type="Script" path="res://wall.gd" id="3_rwbqd"]
-[ext_resource type="PackedScene" uid="uid://c6xhwirvnwrnp" path="res://brick.tscn" id="4_rtrnv"]
+[ext_resource type="Script" path="res://tank1.gd" id="1_4jgca"]
+[ext_resource type="Script" path="res://wall.gd" id="2_lmu60"]
+[ext_resource type="PackedScene" uid="uid://b8cwwfeumdas7" path="res://brick.tscn" id="3_matj6"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_n5np4"]
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_luwr5"]
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_2pbfy"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5alk8"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_i018l"]
+[sub_resource type="BoxMesh" id="BoxMesh_nf532"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_0b5tn"]
+[sub_resource type="BoxMesh" id="BoxMesh_vps34"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocwap"]
-albedo_color = Color(0, 0, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ib7h"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_uunry"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_81xaa"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_il7e8"]
 
 [node name="root" type="Node3D"]
 
-[node name="ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
-mesh = SubResource("PlaneMesh_n5np4")
-surface_material_override/0 = ExtResource("1_4wjot")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
-shape = SubResource("WorldBoundaryShape3D_2pbfy")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_luwr5")
 
 [node name="tank" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-script = ExtResource("2_n83ob")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.107)
+script = ExtResource("1_4jgca")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tank"]
-shape = SubResource("BoxShape3D_i018l")
+shape = SubResource("BoxShape3D_5alk8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="tank"]
-mesh = SubResource("BoxMesh_0b5tn")
-surface_material_override/0 = SubResource("StandardMaterial3D_ocwap")
+mesh = SubResource("BoxMesh_nf532")
 
 [node name="turret" type="CharacterBody3D" parent="tank"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 2, 0, 0.55, 1)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0.486507, -0.20503)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="tank/turret"]
-mesh = SubResource("BoxMesh_uunry")
-surface_material_override/0 = ExtResource("2_y21kj")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.640703, 1.05432)
+mesh = SubResource("BoxMesh_vps34")
+surface_material_override/0 = SubResource("StandardMaterial3D_3ib7h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tank/turret"]
-shape = SubResource("BoxShape3D_81xaa")
+shape = SubResource("CylinderShape3D_il7e8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52795, 7.06714)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, 0.707107, 0, -0.5, 0.5, 0.707107, 0.5, -0.5, 0.707107, 0, 3.99148, 0)
-shadow_enabled = true
 
 [node name="wall" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5.475)
-script = ExtResource("3_rwbqd")
-width = 100
-brickScene = ExtResource("4_rtrnv")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.01305)
+script = ExtResource("2_lmu60")
+brickScene = ExtResource("3_matj6")
