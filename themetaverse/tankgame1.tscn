@@ -1,18 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dxbemdjqev5ci"]
+[gd_scene load_steps=6 format=3 uid="uid://dxbemdjqev5ci"]
 
-[ext_resource type="Script" path="res://tank1.gd" id="1_4jgca"]
+[ext_resource type="Script" path="res://Tank.gd" id="1_qqpgm"]
 [ext_resource type="Script" path="res://wall.gd" id="2_lmu60"]
-[ext_resource type="PackedScene" uid="uid://b8cwwfeumdas7" path="res://brick.tscn" id="3_matj6"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_luwr5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5alk8"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_nf532"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_vps34"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ib7h"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_il7e8"]
 
@@ -26,31 +19,23 @@
 shape = SubResource("WorldBoundaryShape3D_luwr5")
 
 [node name="tank" type="CharacterBody3D" parent="."]
-script = ExtResource("1_4jgca")
+script = ExtResource("1_qqpgm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tank"]
 shape = SubResource("BoxShape3D_5alk8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="tank"]
-mesh = SubResource("BoxMesh_nf532")
 
 [node name="turret" type="CharacterBody3D" parent="tank"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0.5, -1.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="tank/turret"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.640703, 1.05432)
-mesh = SubResource("BoxMesh_vps34")
-surface_material_override/0 = SubResource("StandardMaterial3D_3ib7h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tank/turret"]
 shape = SubResource("CylinderShape3D_il7e8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, 1.52795, 5.78469)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
 [node name="wall" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.00864)
 script = ExtResource("2_lmu60")
-brickScene = ExtResource("3_matj6")
