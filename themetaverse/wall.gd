@@ -1,7 +1,5 @@
 extends Node3D
 
-
-
 # Declare member variables here. Examples:
 
 @export var width = 10

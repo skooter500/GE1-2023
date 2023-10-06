@@ -15,11 +15,6 @@ run/main_scene="res://tankgame1.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
-<<<<<<< HEAD
-[filesystem]
-
-import/fbx/enabled=false
-=======
 [autoload]
 
 XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd"
@@ -27,7 +22,10 @@ XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
->>>>>>> upstream/master
+
+[filesystem]
+
+import/fbx/enabled=false
 
 [input]
 
