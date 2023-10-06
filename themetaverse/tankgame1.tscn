@@ -62,6 +62,6 @@ transform = Transform3D(0.707107, 0.707107, 0, -0.5, 0.5, 0.707107, 0.5, -0.5, 0
 shadow_enabled = true
 
 [node name="wall" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5.475)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.701224, 5.07033, -5.10084)
 script = ExtResource("3_rwbqd")
 brickScene = ExtResource("4_rtrnv")
