@@ -11,7 +11,22 @@
 
 [node name="root" type="Node3D"]
 
+<<<<<<< HEAD
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+=======
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+
+[node name="XRController3D" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="XRController3D2" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="ground" type="StaticBody3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+>>>>>>> a82b7cc8dabf1ca080d427a179d12b7964758c50
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 
@@ -38,4 +53,10 @@ shape = SubResource("CylinderShape3D_il7e8")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
 [node name="wall" type="Node3D" parent="."]
+<<<<<<< HEAD
 script = ExtResource("2_lmu60")
+=======
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5.475)
+script = ExtResource("3_rwbqd")
+brickScene = ExtResource("4_rtrnv")
+>>>>>>> a82b7cc8dabf1ca080d427a179d12b7964758c50
