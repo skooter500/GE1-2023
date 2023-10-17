@@ -44,7 +44,7 @@ surface_material_override/0 = ExtResource("1_4wjot")
 shape = SubResource("WorldBoundaryShape3D_2pbfy")
 
 [node name="tank" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.177723, 0.507325, 0.0925303)
 script = ExtResource("2_n83ob")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tank"]
