@@ -53,10 +53,4 @@ shape = SubResource("CylinderShape3D_il7e8")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
 [node name="wall" type="Node3D" parent="."]
-<<<<<<< HEAD
 script = ExtResource("2_lmu60")
-=======
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5.475)
-script = ExtResource("3_rwbqd")
-brickScene = ExtResource("4_rtrnv")
->>>>>>> a82b7cc8dabf1ca080d427a179d12b7964758c50
