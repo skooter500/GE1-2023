@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://o5qtxaj06t15"]
+
+[resource]
+albedo_color = Color(0.862745, 0, 0.45098, 1)
+=======
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://nhu2r5spu63n"]
+
+[resource]
+albedo_color = Color(0.105882, 0.545098, 0.545098, 1)
+>>>>>>> 1b9e3670da07ca53d28be2080cfff1f429bbd282

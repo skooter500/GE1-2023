@@ -1,20 +1,32 @@
-[gd_scene load_steps=30 format=3 uid="uid://bsd26l7esfabd"]
+[gd_scene load_steps=28 format=3 uid="uid://bsd26l7esfabd"]
 
 [ext_resource type="Script" path="res://Start_XR.gd" id="1_8q0sy"]
 [ext_resource type="Script" path="res://FPController.gd" id="1_sbaxy"]
 [ext_resource type="Script" path="res://wall.gd" id="2"]
-[ext_resource type="Environment" uid="uid://b5dnnkkpxo3qc" path="res://seek_environment..tres" id="2_jagpw"]
+[ext_resource type="Environment" path="res://seek_environment..tres" id="2_jagpw"]
+[ext_resource type="Material" uid="uid://cucxxprp61myx" path="res://aitankmaterial.tres" id="2_x2tpc"]
 [ext_resource type="PackedScene" uid="uid://bsmshwh5fdw1y" path="res://Box.tscn" id="4"]
 [ext_resource type="Script" path="res://TrailRender.gd" id="4_3h56a"]
 [ext_resource type="PackedScene" path="res://SceneSwitcher.tscn" id="5"]
-[ext_resource type="Material" uid="uid://u2l570sl0ei1" path="res://trail1.tres" id="5_5qnui"]
+[ext_resource type="Material" path="res://trail1.tres" id="5_5qnui"]
 [ext_resource type="Material" path="res://Ground.tres" id="5_m2ykm"]
 [ext_resource type="Script" path="res://Tank.gd" id="7_3p3kj"]
 [ext_resource type="PackedScene" uid="uid://b4pok7xvls88x" path="res://bullet1.tscn" id="7_yhs48"]
-[ext_resource type="Material" uid="uid://o5qtxaj06t15" path="res://Tank Material.tres" id="9_oqvfe"]
+[ext_resource type="Material" uid="uid://nhu2r5spu63n" path="res://Tank Material.tres" id="9_oqvfe"]
 [ext_resource type="Script" path="res://circles_of_things.gd" id="10_njqh7"]
 [ext_resource type="PackedScene" uid="uid://dajk1oava0d0c" path="res://dod.tscn" id="11_8cpsu"]
 [ext_resource type="PackedScene" uid="uid://dwek4dvynv3km" path="res://dod_physics.tscn" id="12_yglxe"]
+
+[sub_resource type="BoxMesh" id="1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2mivd"]
+
+[sub_resource type="BoxMesh" id="6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w0fv0"]
+size = Vector3(0.25, 0.25, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ng4vm"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_2lwri"]
 
@@ -30,32 +42,49 @@ point_count = 2
 
 [sub_resource type="PlaneMesh" id="2"]
 
-[sub_resource type="BoxMesh" id="1"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_4jg1t"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uiocd"]
-albedo_color = Color(0.196078, 0.803922, 0.196078, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_vq3p8"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6f4no"]
-albedo_color = Color(1, 0, 1, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2mivd"]
-
-[sub_resource type="BoxMesh" id="6"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_w0fv0"]
-size = Vector3(0.25, 0.25, 2)
-
 [node name="root" type="Node3D"]
 script = ExtResource("1_8q0sy")
 
-[node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.38176, 20.2368)
+[node name="aiTank" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.5, -0.042)
+motion_mode = 1
+
+[node name="tankMesh" type="MeshInstance3D" parent="aiTank"]
+mesh = SubResource("1")
+surface_material_override/0 = ExtResource("2_x2tpc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="aiTank"]
+shape = SubResource("BoxShape3D_2mivd")
+
+[node name="Timer" type="Timer" parent="aiTank"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="aiTank"]
+
+[node name="Turret" type="MeshInstance3D" parent="aiTank/CharacterBody3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 2, 0, 0.625, 1)
+mesh = SubResource("6")
+skeleton = NodePath("../../tankMesh")
+surface_material_override/0 = ExtResource("2_x2tpc")
+
+[node name="bulletSpawn" type="Node3D" parent="aiTank/CharacterBody3D/Turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.679319)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="aiTank/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 1)
+shape = SubResource("BoxShape3D_w0fv0")
+
+[node name="Player" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.85944, -9.47485)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
 script = ExtResource("1_sbaxy")
 speed = 10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("SphereShape3D_ng4vm")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Player"]
 
 [node name="XROrigin3D" type="XROrigin3D" parent="Player"]
 
@@ -66,32 +95,51 @@ environment = ExtResource("2_jagpw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.34876, 0, 0)
 tracker = &"left_hand"
 
-[node name="jet" type="Node3D" parent="Player/XROrigin3D/XRController3D"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/XROrigin3D/XRController3D/jet"]
-mesh = SubResource("CylinderMesh_2lwri")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player/XROrigin3D/XRController3D/jet"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("SphereMesh_qbyen")
-
-[node name="TrailRenderer" type="Node3D" parent="Player/XROrigin3D/XRController3D/jet"]
-script = ExtResource("4_3h56a")
-width_curve = SubResource("Curve_hqwgp")
-material = ExtResource("5_5qnui")
-
 [node name="XRController3D2" type="XRController3D" parent="Player/XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.48393, 0, 0)
 tracker = &"right_hand"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/XROrigin3D/XRController3D2"]
+[node name="old_Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.38176, 20.2368)
+visible = false
+script = ExtResource("1_sbaxy")
+speed = 10.0
 
-[node name="AudioListener3D" type="AudioListener3D" parent="Player"]
+[node name="XROrigin3D" type="XROrigin3D" parent="old_Player"]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="old_Player/XROrigin3D"]
+environment = ExtResource("2_jagpw")
+
+[node name="XRController3D" type="XRController3D" parent="old_Player/XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.34876, 0, 0)
+tracker = &"left_hand"
+
+[node name="jet" type="Node3D" parent="old_Player/XROrigin3D/XRController3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="old_Player/XROrigin3D/XRController3D/jet"]
+mesh = SubResource("CylinderMesh_2lwri")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="old_Player/XROrigin3D/XRController3D/jet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("SphereMesh_qbyen")
+
+[node name="TrailRenderer" type="Node3D" parent="old_Player/XROrigin3D/XRController3D/jet"]
+script = ExtResource("4_3h56a")
+width_curve = SubResource("Curve_hqwgp")
+material = ExtResource("5_5qnui")
+
+[node name="XRController3D2" type="XRController3D" parent="old_Player/XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.48393, 0, 0)
+tracker = &"right_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="old_Player/XROrigin3D/XRController3D2"]
+
+[node name="AudioListener3D" type="AudioListener3D" parent="old_Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.213, 5, 44.1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="old_Player"]
 shape = SubResource("SphereShape3D_tfhgs")
 
 [node name="SceneSwitcher" parent="." instance=ExtResource("5")]
@@ -117,7 +165,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("5_m2ykm")
 
 [node name="tank" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.41101, 0.652925, -0.463665)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.021)
 motion_mode = 1
 script = ExtResource("7_3p3kj")
 rotSpeed = 3.0
@@ -128,58 +176,19 @@ bulletPrefab = ExtResource("7_yhs48")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25501, -2.55356)
 
 [node name="tankMesh" type="MeshInstance3D" parent="tank"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.57012, 1.03928, -0.640736)
 mesh = SubResource("1")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("9_oqvfe")
 
-[node name="Body" type="MeshInstance3D" parent="tank"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 3, 3.54023, 0.0198529, 0)
-mesh = SubResource("BoxMesh_4jg1t")
-skeleton = NodePath("../CharacterBody3D")
-surface_material_override/0 = SubResource("StandardMaterial3D_uiocd")
-
-[node name="Wheels" type="MeshInstance3D" parent="tank"]
-transform = Transform3D(0.00200717, -0.0999983, -0.00553265, 0.999998, 0.000200711, 1.11053e-05, 2.7339e-10, -0.000553266, 0.999985, 4.13948, -0.0852603, -1.13227)
-mesh = SubResource("CylinderMesh_vq3p8")
-surface_material_override/0 = SubResource("StandardMaterial3D_6f4no")
-
-[node name="Wheels4" type="MeshInstance3D" parent="tank"]
-transform = Transform3D(0.00200717, -0.0999983, -0.00553265, 0.999998, 0.000200711, 1.11053e-05, 2.7339e-10, -0.000553266, 0.999985, 2.92932, -0.0852603, -1.13227)
-mesh = SubResource("CylinderMesh_vq3p8")
-surface_material_override/0 = SubResource("StandardMaterial3D_6f4no")
-
-[node name="Wheels5" type="MeshInstance3D" parent="tank"]
-transform = Transform3D(0.00200717, -0.0999983, -0.00553265, 0.999998, 0.000200711, 1.11053e-05, 2.7339e-10, -0.000553266, 0.999985, 2.92932, -0.0852603, -0.10214)
-mesh = SubResource("CylinderMesh_vq3p8")
-surface_material_override/0 = SubResource("StandardMaterial3D_6f4no")
-
-[node name="Wheels6" type="MeshInstance3D" parent="tank"]
-transform = Transform3D(0.00200717, -0.0999983, -0.00553265, 0.999998, 0.000200711, 1.11053e-05, 2.7339e-10, -0.000553266, 0.999985, 2.92932, -0.0852603, 0.968088)
-mesh = SubResource("CylinderMesh_vq3p8")
-surface_material_override/0 = SubResource("StandardMaterial3D_6f4no")
-
-[node name="Wheels2" type="MeshInstance3D" parent="tank"]
-transform = Transform3D(0.00200717, -0.0999983, -0.00553265, 0.999998, 0.000200711, 1.11053e-05, 2.7339e-10, -0.000553266, 0.999985, 4.13948, -0.0852603, -0.0705757)
-mesh = SubResource("CylinderMesh_vq3p8")
-surface_material_override/0 = SubResource("StandardMaterial3D_6f4no")
-
-[node name="Wheels3" type="MeshInstance3D" parent="tank"]
-transform = Transform3D(0.00200717, -0.0999983, -0.00553265, 0.999998, 0.000200711, 1.11053e-05, 2.7339e-10, -0.000553266, 0.999985, 4.13948, -0.0852603, 0.997292)
-mesh = SubResource("CylinderMesh_vq3p8")
-surface_material_override/0 = SubResource("StandardMaterial3D_6f4no")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tank"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.55131, 1.01978, -0.671151)
 shape = SubResource("BoxShape3D_2mivd")
 
 [node name="Timer" type="Timer" parent="tank"]
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="tank"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0198529, 0)
 
 [node name="Turret" type="MeshInstance3D" parent="tank/CharacterBody3D"]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 2, 3.5575, 1.20943, 0.650374)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 2, 0, 0.625, 1)
 mesh = SubResource("6")
 skeleton = NodePath("../../tankMesh")
 surface_material_override/0 = ExtResource("9_oqvfe")
@@ -187,11 +196,8 @@ surface_material_override/0 = ExtResource("9_oqvfe")
 [node name="bulletSpawn" type="Node3D" parent="tank/CharacterBody3D/Turret"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.679319)
 
-[node name="trail" type="Node3D" parent="tank/CharacterBody3D/Turret"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123032, -0.0202913, 0.549753)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tank/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.53569, 1.22365, 0.659591)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 1)
 shape = SubResource("BoxShape3D_w0fv0")
 
 [node name="genart1" type="Marker3D" parent="."]
