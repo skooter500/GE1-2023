@@ -25,6 +25,10 @@ XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd
 window/size/viewport_width=1024
 window/size/viewport_height=768
 
+[dotnet]
+
+project/assembly_name="Themetaverse"
+
 [editor_plugins]
 
 enabled=PackedStringArray()
