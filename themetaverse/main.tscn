@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsmqyspcm4fyi"]
+
+[ext_resource type="PackedScene" uid="uid://bmgw0600wo1od" path="res://spider_bot_model.tscn" id="1_ynxuy"]
+
+[sub_resource type="Environment" id="Environment_sgfbr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0iush"]
+albedo_color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tyoav"]
+albedo_color = Color(0.172549, 0.172549, 0.172549, 1)
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sgfbr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.859924, 0, -0.510423, -0.0880286, 0.985016, 0.148304, 0.502775, 0.172462, -0.847039, -8.86842, 8.53359, -12.8195)
+fov = 52.4544
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(80, 40, 80)
+material = SubResource("StandardMaterial3D_0iush")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
+operation = 2
+size = Vector3(75, 35, 75)
+material = SubResource("StandardMaterial3D_tyoav")
+
+[node name="spider_bot_model" parent="." instance=ExtResource("1_ynxuy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.48624, -0.0400531)
