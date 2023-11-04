@@ -13,6 +13,7 @@ var controlling = true
 
 func _input(event):
 	if event is InputEventMouseMotion and controlling:
+		print(str(event))
 		rotate(Vector3.DOWN, deg_to_rad(event.relative.x * sensitivity))
 		rotate(transform.basis.x,deg_to_rad(- event.relative.y * sensitivity))
 	if event.is_action_pressed("ui_cancel"):
